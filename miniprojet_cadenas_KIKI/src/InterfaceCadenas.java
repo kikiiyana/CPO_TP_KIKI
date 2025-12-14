@@ -7,43 +7,27 @@
  *
  * @author iyanarekiki
  */
-import javax.swing.*; 
-import java.awt.*;    
-import java.awt.event.ActionListener; /
-import java.awt.event.ActionEvent;    
-public class InterfaceCadenas extends javax.swing.JFrame {
-    // 2a. L'objet métier
-    private Cadenas jeu; 
+import javax.swing.*;
+import java.awt.*;
 
-    
+public class InterfaceCadenas extends javax.swing.JFrame {
+
+    private final Cadenas jeu;
+
+    // Tableau avec les 4 chiffres proposés par le joueur
     private int[] chiffresEssai = {0, 0, 0, 0};
 
-  
-    private final JLabel[] chiffreLabels = new JLabel[4]; 
-    private JButton boutonTester; 
-    private JLabel texteNbExacts; 
-    private JLabel texteScore;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InterfaceCadenas.class.getName());
-
-    /**
-     * Creates new form InterfaceCadenas
-     */
     public InterfaceCadenas() {
-        this.jeu = new Cadenas(); 
+        this.jeu = new Cadenas();     // création de la logique de jeu
 
         
-        super("Mini Projet Cadenas"); 
-        this.setSize(600, 500); 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        this.setLayout(null); 
+        initComponents();             // construit l’interface générée par NetBeans
+        miseAJourAffichage();         // met tout à zéro au démarrage
+
+        // options de base de la fenêtre
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        
-        
-        construireComposants(); 
-        
-
-        this.setVisible(true);
-        initComponents();
+        this.setLocationRelativeTo(null); // centre la fenêtre
     }
 
     /**
@@ -62,11 +46,10 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         texte_chiffre_3 = new javax.swing.JLabel();
         up_chiffre_1 = new javax.swing.JButton();
         up_chiffre_2 = new javax.swing.JButton();
-        up_chiffre_3 = new javax.swing.JButton();
         down_chiffre_1 = new javax.swing.JButton();
         down_chiffre_2 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        down_chiffre_3 = new javax.swing.JButton();
+        down_chiffre_4 = new javax.swing.JButton();
         up_chiffre_4 = new javax.swing.JButton();
         bouton_tester = new javax.swing.JButton();
         texte_lbl_nb_chiffres_exacts = new javax.swing.JLabel();
@@ -75,6 +58,7 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         texte_tentatives = new javax.swing.JLabel();
         texte_score = new javax.swing.JLabel();
         bouton_recommencer = new javax.swing.JButton();
+        up_chiffre_3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -116,12 +100,13 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         });
         getContentPane().add(up_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
-        up_chiffre_3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        up_chiffre_3.setText("^");
-        getContentPane().add(up_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
-
         down_chiffre_1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         down_chiffre_1.setText("v");
+        down_chiffre_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                down_chiffre_1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(down_chiffre_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
         down_chiffre_2.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
@@ -133,23 +118,23 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         });
         getContentPane().add(down_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
-        jButton7.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jButton7.setText("v");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        down_chiffre_3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        down_chiffre_3.setText("v");
+        down_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                down_chiffre_3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+        getContentPane().add(down_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
 
-        jButton8.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jButton8.setText("v");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        down_chiffre_4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        down_chiffre_4.setText("v");
+        down_chiffre_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                down_chiffre_4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
+        getContentPane().add(down_chiffre_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
 
         up_chiffre_4.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         up_chiffre_4.setText("^");
@@ -192,40 +177,129 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         });
         getContentPane().add(bouton_recommencer, new org.netbeans.lib.awtextra.AbsoluteConstraints(316, 268, -1, -1));
 
+        up_chiffre_3.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        up_chiffre_3.setText("^");
+        up_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                up_chiffre_3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(up_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, 50, 50));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void up_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_1ActionPerformed
+{
+    chiffresEssai[0] = (chiffresEssai[0] + 1) % 10; // passe de 9 à 0
+    miseAJourAffichage();
+}
 
     private void up_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_2ActionPerformed
-        // TODO add your handling code here:
+        {
+    chiffresEssai[1] = (chiffresEssai[1] + 1) % 10;
+    miseAJourAffichage();
+}
+// TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_2ActionPerformed
 
     private void down_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_2ActionPerformed
-        // TODO add your handling code here:
+        {
+    chiffresEssai[1] = (chiffresEssai[1] + 9) % 10;
+    miseAJourAffichage();
+}
+// TODO add your handling code here:
     }//GEN-LAST:event_down_chiffre_2ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void down_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_4ActionPerformed
+       {
+    chiffresEssai[3] = (chiffresEssai[3] + 9) % 10;
+    miseAJourAffichage();
+} // TODO add your handling code here:
+    }//GEN-LAST:event_down_chiffre_4ActionPerformed
 
     private void up_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_4ActionPerformed
-        // TODO add your handling code here:
+      {
+    chiffresEssai[3] = (chiffresEssai[3] + 1) % 10;
+    miseAJourAffichage();
+}
+  // TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_4ActionPerformed
 
     private void bouton_testerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_testerActionPerformed
-        // TODO add your handling code here:
+      // Si la partie est déjà finie, on bloque l'action
+    if (jeu.estFini()) {
+        JOptionPane.showMessageDialog(this, "La partie est terminée ! Cliquez sur Recommencer.");
+        return;
+    }
+    
+    // 1. Appel de la logique métier (met à jour les scores)
+    jeu.verifierEssai(chiffresEssai);
+
+    // 2. Mettre à jour l'interface avec les nouveaux résultats
+    miseAJourAffichage();
+
+    // 3. Vérifier les conditions de fin de partie
+    if (jeu.estGagne()) {
+        JOptionPane.showMessageDialog(this, "FÉLICITATIONS ! Vous avez trouvé le code !");
+        bouton_tester.setEnabled(false); // Désactive le bouton Tester
+    } else if (jeu.estPerdu()) {
+        // Optionnel: Afficher le code secret (nécessite getCodeSecret dans Cadenas)
+        // String code = Arrays.toString(jeu.getCodeSecret()).replaceAll("[\\[\\], ]", "");
+        JOptionPane.showMessageDialog(this, "PERDU ! La partie est terminée.");
+        bouton_tester.setEnabled(false); // Désactive le bouton Tester
+    }  // TODO add your handling code here:
     }//GEN-LAST:event_bouton_testerActionPerformed
 
     private void bouton_recommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_recommencerActionPerformed
-        // TODO add your handling code here:
+     // 1. Réinitialiser la logique métier
+    jeu.recommencer();
+    
+    // 2. Réinitialiser l'essai affiché à 0000
+    chiffresEssai = new int[]{0, 0, 0, 0};
+    
+    // 3. Réactiver le bouton Tester
+    bouton_tester.setEnabled(true);
+    
+    // 4. Mettre à jour l'affichage
+    miseAJourAffichage();
+    texte_chiffre_0.setText(String.valueOf(chiffresEssai[0]));
+        texte_chiffre_1.setText(String.valueOf(chiffresEssai[1]));
+        texte_chiffre_2.setText(String.valueOf(chiffresEssai[2]));
+        texte_chiffre_3.setText(String.valueOf(chiffresEssai[3]));
+
+        texte_lbl_nb_chiffres_exacts.setText("Nombre de chiffres exacts: " + jeu.getNombreChiffresExacts());
+        texte_nb_chiffres_haut.setText("Nombre de chiffres trop hauts : " + jeu.getNombreChiffresTropHauts());
+        texte_lbl_nb_chiffres_bas.setText("Nombre de chiffres trop bas : " + jeu.getNombreChiffresTropBas());
+
+        texte_score.setText(jeu.getTentativesUtilisees() + " sur " + jeu.getMAX_TENTATIVES());
+      // TODO add your handling code here:
     }//GEN-LAST:event_bouton_recommencerActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void down_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_3ActionPerformed
+       {
+    chiffresEssai[2] = (chiffresEssai[2] + 9) % 10;
+    miseAJourAffichage();
+}
+ // TODO add your handling code here:
+    }//GEN-LAST:event_down_chiffre_3ActionPerformed
+
+    private void down_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_1ActionPerformed
+      {
+    chiffresEssai[0] = (chiffresEssai[0] + 9) % 10;
+    miseAJourAffichage();
+}  // TODO add your handling code here:
+    }//GEN-LAST:event_down_chiffre_1ActionPerformed
+
+    private void up_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_3ActionPerformed
+       {
+    chiffresEssai[2] = (chiffresEssai[2] + 1) % 10;
+    miseAJourAffichage();
+}
+ // TODO add your handling code here:
+    }//GEN-LAST:event_up_chiffre_3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,44 +322,67 @@ public class InterfaceCadenas extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new InterfaceCadenas().setVisible(true));
-        SwingUtilities.invokeLater(() -> new InterfaceCadenas());
+        try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
+            // plus simple que logger.log(...)
+            
+    }
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(() -> new InterfaceCadenas().setVisible(true));
     }
 
     private void construireComposants() {
         for (int i = 0; i < 4; i++) {
+            JLabel[] chiffreLabels = null;
             chiffreLabels[i] = new JLabel(String.valueOf(chiffresEssai[i]));
             chiffreLabels[i].setFont(new Font("Arial", Font.BOLD, 48));
             chiffreLabels[i].setBounds(50 + i * 120, 100, 100, 60); // Positionnement absolu
             this.add(chiffreLabels[i]);
         }
         
-        // Exemple 2: Création du bouton "Tester" (bouton_tester)
-        boutonTester = new JButton("Tester"); // [cite: 52]
-        boutonTester.setBounds(500, 120, 100, 40);
-        boutonTester.addActionListener(this); // Lie l'action au gestionnaire (actionPerformed)
-        this.add(boutonTester);
-        
+              
         // ... Répétez pour tous les autres boutons et labels (flèches, score, etc.) ...
         
         // Initialiser l'affichage des scores à 0
         miseAJourAffichage();
         
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
-    private void miseAJourAffichage() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void miseAJourAffichage() { 
+//  Mettre à jour l'affichage des 4 chiffres choisis par l'utilisateur
+    texte_chiffre_0.setText(String.valueOf(chiffresEssai[0]));
+    texte_chiffre_1.setText(String.valueOf(chiffresEssai[1]));
+    texte_chiffre_2.setText(String.valueOf(chiffresEssai[2]));
+    texte_chiffre_3.setText(String.valueOf(chiffresEssai[3]));
+
+    // 2. Mettre à jour les résultats (Scores)
+    // Nous mettons la valeur à côté du libellé descriptif.
+    texte_lbl_nb_chiffres_exacts.setText("Nombre de chiffres exacts: " + jeu.getNombreChiffresExacts());
+    texte_nb_chiffres_haut.setText("Nombre de chiffres trop hauts : " + jeu.getNombreChiffresTropHauts());
+    texte_lbl_nb_chiffres_bas.setText("Nombre de chiffres trop bas : " + jeu.getNombreChiffresTropBas());
+
+    // 3. Mettre à jour le score global (Tentatives)
+    texte_score.setText(jeu.getTentativesUtilisees() + " sur " + jeu.getMAX_TENTATIVES());
+        
+
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bouton_recommencer;
     private javax.swing.JButton bouton_tester;
     private javax.swing.JButton down_chiffre_1;
     private javax.swing.JButton down_chiffre_2;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton down_chiffre_3;
+    private javax.swing.JButton down_chiffre_4;
     private javax.swing.JLabel texte_chiffre_0;
     private javax.swing.JLabel texte_chiffre_1;
     private javax.swing.JLabel texte_chiffre_2;
