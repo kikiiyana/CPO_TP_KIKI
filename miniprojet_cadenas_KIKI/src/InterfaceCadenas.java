@@ -13,21 +13,23 @@ import java.awt.*;
 public class InterfaceCadenas extends javax.swing.JFrame {
 
     private final Cadenas jeu;
-
-    // Tableau avec les 4 chiffres proposés par le joueur
     private int[] chiffresEssai = {0, 0, 0, 0};
+
+    
+   
+
+    
 
     public InterfaceCadenas() {
         this.jeu = new Cadenas();     // création de la logique de jeu
 
         
-        initComponents();             // construit l’interface générée par NetBeans
-        miseAJourAffichage();         // met tout à zéro au démarrage
+         initComponents();          // crée tous les composants
+        miseAJourAffichage();      // met les bons textes
 
-        // options de base de la fenêtre
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null); // centre la fenêtre
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null); // centre la fenêtre
     }
 
     /**
@@ -198,33 +200,33 @@ public class InterfaceCadenas extends javax.swing.JFrame {
 }
 
     private void up_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_2ActionPerformed
-        {
+        
     chiffresEssai[1] = (chiffresEssai[1] + 1) % 10;
     miseAJourAffichage();
-}
+
 // TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_2ActionPerformed
 
     private void down_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_2ActionPerformed
-        {
+        
     chiffresEssai[1] = (chiffresEssai[1] + 9) % 10;
     miseAJourAffichage();
-}
+
 // TODO add your handling code here:
     }//GEN-LAST:event_down_chiffre_2ActionPerformed
 
     private void down_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_4ActionPerformed
-       {
+       
     chiffresEssai[3] = (chiffresEssai[3] + 9) % 10;
     miseAJourAffichage();
-} // TODO add your handling code here:
+ // TODO add your handling code here:
     }//GEN-LAST:event_down_chiffre_4ActionPerformed
 
     private void up_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_4ActionPerformed
-      {
+      
     chiffresEssai[3] = (chiffresEssai[3] + 1) % 10;
     miseAJourAffichage();
-}
+
   // TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_4ActionPerformed
 
@@ -287,16 +289,26 @@ public class InterfaceCadenas extends javax.swing.JFrame {
     }//GEN-LAST:event_down_chiffre_3ActionPerformed
 
     private void down_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_1ActionPerformed
-      {
+      
     chiffresEssai[0] = (chiffresEssai[0] + 9) % 10;
     miseAJourAffichage();
-}  // TODO add your handling code here:
+// TODO add your handling code here:
     }//GEN-LAST:event_down_chiffre_1ActionPerformed
 
     private void up_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_3ActionPerformed
        {
     chiffresEssai[2] = (chiffresEssai[2] + 1) % 10;
     miseAJourAffichage();
+    texte_chiffre_0.setText(String.valueOf(chiffresEssai[0]));
+        texte_chiffre_1.setText(String.valueOf(chiffresEssai[1]));
+        texte_chiffre_2.setText(String.valueOf(chiffresEssai[2]));
+        texte_chiffre_3.setText(String.valueOf(chiffresEssai[3]));
+
+        texte_lbl_nb_chiffres_exacts.setText("Nombre de chiffres exacts: " + jeu.getNombreChiffresExacts());
+        texte_nb_chiffres_haut.setText("Nombre de chiffres trop hauts : " + jeu.getNombreChiffresTropHauts());
+        texte_lbl_nb_chiffres_bas.setText("Nombre de chiffres trop bas : " + jeu.getNombreChiffresTropBas());
+
+        texte_score.setText(jeu.getTentativesUtilisees() + " sur " + jeu.getMAX_TENTATIVES());
 }
  // TODO add your handling code here:
     }//GEN-LAST:event_up_chiffre_3ActionPerformed
@@ -338,24 +350,7 @@ public class InterfaceCadenas extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(() -> new InterfaceCadenas().setVisible(true));
     }
 
-    private void construireComposants() {
-        for (int i = 0; i < 4; i++) {
-            JLabel[] chiffreLabels = null;
-            chiffreLabels[i] = new JLabel(String.valueOf(chiffresEssai[i]));
-            chiffreLabels[i].setFont(new Font("Arial", Font.BOLD, 48));
-            chiffreLabels[i].setBounds(50 + i * 120, 100, 100, 60); // Positionnement absolu
-            this.add(chiffreLabels[i]);
-        }
-        
-              
-        // ... Répétez pour tous les autres boutons et labels (flèches, score, etc.) ...
-        
-        // Initialiser l'affichage des scores à 0
-        miseAJourAffichage();
-        
-        
-    }
-
+    
     private void miseAJourAffichage() { 
 //  Mettre à jour l'affichage des 4 chiffres choisis par l'utilisateur
     texte_chiffre_0.setText(String.valueOf(chiffresEssai[0]));
